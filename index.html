@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f2e8">
+<title>我们的回忆册 · 给龚煦的第 600 天</title>
+<link rel="stylesheet" href="assets/book.css"><link rel="stylesheet" href="assets/sequence.css"><link rel="stylesheet" href="assets/letter.css">
+<script defer src="assets/album.js"></script><script defer src="assets/sequence.js"></script><script defer src="assets/letter.js"></script><script defer src="assets/book.js"></script>
+</head>
+<body>
+<svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+ <symbol id="i-book" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.45"><path d="M16 8.5C12 5 7 4.8 3.3 6.2v18.5c4.3-1.4 8.2-1 12.7 2.1 4.5-3.1 8.4-3.5 12.7-2.1V6.2C24.5 5 20.4 5 16 8.5Zm0 .5v17"/><path d="M6.7 10c2.3-.5 4.5.1 6.3 1.2m-6.3 2.7c2.3-.5 4.5.1 6.3 1.2m6.3-3.6c1.6-1 3.9-1.5 6-1.2"/></g></symbol>
+ <symbol id="i-music" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M9 17.2V5.5l11-2v12M9 9.5l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2.1"/><ellipse cx="17" cy="16" rx="3" ry="2.1"/></g></symbol>
+ <symbol id="i-list" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 6h12M8 12h12M8 18h12M3 6h.4M3 12h.4M3 18h.4"/></g></symbol>
+ <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M3.5 12h16M14 5.8l6.2 6.2-6.2 6.2" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+ <symbol id="i-zoom" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3.5 9V3.5H9M15 3.5h5.5V9M20.5 15v5.5H15M9 20.5H3.5V15"/></g></symbol>
+</svg>
+<div id="reel" aria-hidden="true"></div>
+<header class="mast"><div class="mast-in"><button class="brand" id="home" aria-label="回到封面"><svg aria-hidden="true"><use href="#i-book"/></svg><span>我们的回忆册</span></button><nav aria-label="回忆册工具"><button id="music" aria-pressed="true"><svg aria-hidden="true"><use href="#i-music"/></svg><span>音乐已开</span></button><i class="sep"></i><button id="contents"><svg aria-hidden="true"><use href="#i-list"/></svg>目录</button></nav></div></header>
+<main id="page" tabindex="-1"></main>
+<footer id="foot"></footer>
+<dialog id="toc" aria-label="回忆目录"><div class="dlg-top"><div><small>CONTENTS</small><h2>回忆目录</h2></div><button data-close aria-label="关闭目录">×</button></div><div id="toc-list"></div></dialog>
+<dialog id="viewer" aria-label="查看完整照片"><div class="light-head"><span id="view-title"></span><button data-close aria-label="关闭大图">×</button></div><div id="view-media"></div><div class="light-nav"><button id="prev-media">← 上一份</button><button id="next-media">下一份 →</button></div></dialog>
+</body></html>
