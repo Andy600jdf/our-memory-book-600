@@ -1,0 +1,222 @@
+.sc-album {
+  --stock: #e3e3c9;
+  --stock2: #eae1d2;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+}
+.sc-album[data-stock="1"] { --stock:#dfded0; --stock2:#e9decb; }
+.sc-album[data-stock="2"] { --stock:#e6d5c7; --stock2:#dce0d1; }
+.sc-album[data-mood="sad"] { --stock:#d0dada; --stock2:#dcddd7; }
+.sc-spread {
+  container-type: size;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: clamp(335px, 58svh, 700px);
+}
+.sc-spread::before, .sc-spread::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+/* Two torn sheets run beneath the prints and carry right across the spread. */
+.sc-spread::before {
+  inset: 8% -2.6% 11% 0;
+  transform: rotate(-1.4deg);
+  background: url(grain.png), linear-gradient(112deg, var(--stock) 12%, var(--stock2) 75%);
+  clip-path: polygon(0 3%,13% 2.1%,25% 2.7%,39% 1.1%,51% 2%,64% 1.6%,72% 2.6%,83% 1%,100% 0,99% 95%,89% 96.6%,78% 96%,62% 97.4%,53% 96%,36% 98.1%,24% 97.3%,10% 99%,0 98%);
+}
+.sc-spread::after {
+  inset: 31% 2% 2% 29%;
+  transform: rotate(1.8deg);
+  background: repeating-linear-gradient(0deg, transparent 0 24px, #8f856832 24px 25px),#eee9db;
+  border: 1px solid #bcb69f47;
+  box-shadow: 0 1px 1px #59471d12;
+  z-index: -1;
+}
+.sc-print {
+  --xx:var(--x); --yy:var(--y); --ww:var(--w); --hh:var(--cap); --aa:var(--turn);
+  position: absolute;
+  z-index: var(--layer);
+  left: var(--xx);
+  top: var(--yy);
+  width: min(var(--ww),calc(var(--hh) * var(--ratio)));
+  max-width: 94%;
+  margin: 0;
+  transform: translate(-50%,-50%) rotate(var(--aa));
+  visibility: hidden;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px #43382532) drop-shadow(1px 6px 4px #453b2826);
+}
+.sc-print.sc-placed { visibility: visible; pointer-events: auto; }
+.sc-mat {
+  position: relative;
+  padding: clamp(4px, .55vw, 8px);
+  background: linear-gradient(125deg, #fffdf7, #fffdf8 63%, #f2ecdf);
+  border: 1px solid #c8c0aa78;
+  box-shadow: inset 0 0 0 1px #ffffffc4;
+}
+.sc-print:first-child .sc-mat { padding-bottom:clamp(8px,1.25vw,17px); }
+.sc-print:focus-within { z-index: 20; }
+@media(hover:hover){.sc-print:has(.sc-opener:hover) { z-index: 20; }}
+.sc-print.sc-placed .sc-mat {
+  animation: sc-arrive .64s cubic-bezier(.12,.74,.23,1.04) both;
+}
+.sc-print:nth-child(3n+2) { --dx:16px; --dy:-18px; --tw:3deg; }
+.sc-print:nth-child(3n+3) { --dx:5px; --dy:18px; --tw:-2deg; }
+@keyframes sc-arrive {
+  from { opacity: 0; transform: translate(var(--dx,-19px),var(--dy,-17px)) rotate(var(--tw,-3deg)) scale(1.055); }
+  78% { opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+.sc-mat::before, .sc-mat::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+.sc-print[data-pin="tape"] .sc-mat::before {
+  top: -8px;
+  left: 34%;
+  width: clamp(29px,27%,72px);
+  height: clamp(12px,1.4vw,21px);
+  transform: rotate(-5deg);
+  background: repeating-linear-gradient(95deg,#b5a77d2e 0 1px,transparent 1px 3px),#d9c99cbf;
+  clip-path: polygon(1% 4%,99% 0,98% 19%,100% 42%,98% 68%,100% 98%,0 94%,2% 69%,0 42%,2% 21%);
+}
+.sc-print[data-pin="corners"] .sc-mat::before,.sc-print[data-pin="corners"] .sc-mat::after {
+  width: clamp(17px,14%,33px);
+  aspect-ratio: 1;
+  background: linear-gradient(135deg,#d0c4a5,#e8dfca 44%,#b8aa8d 53%,transparent 54%);
+}
+.sc-print[data-pin="corners"] .sc-mat::before {left:-2px;top:-2px;}
+.sc-print[data-pin="corners"] .sc-mat::after {right:-2px;bottom:-2px;transform:rotate(180deg);}
+.sc-print[data-pin="clip"] .sc-mat::before {
+  width: 8px;
+  height: clamp(22px,2.1vw,33px);
+  top: -10px;
+  right: 11%;
+  border: 1.5px solid #82775d;
+  border-radius: 6px;
+  box-shadow: inset 1px 0 0 #fff9,1px 1px 1px #51441d55;
+  transform: rotate(8deg);
+}
+.sc-opener,.sc-clip-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  line-height: 0;
+  background: #eee9dc;
+}
+.sc-opener { cursor: zoom-in; }
+.sc-photo { display:block; width:100%; height:auto; aspect-ratio:var(--ratio); object-fit:contain; }
+.sc-clip-wrap { line-height:1.4; }
+.sc-play {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #253128df;
+  color: #fffdf6;
+  padding: 8px 12px;
+  font: 13px/1.4 var(--sans,sans-serif);
+  border-radius: 2px;
+}
+.sc-opener:focus-visible { outline: 2px solid var(--red,#8c4d3d); outline-offset:4px; }
+.sc-subtitle {
+  width: fit-content;
+  max-width: min(90%,37em);
+  margin: 18px auto 0;
+  padding: 0 0 5px 19px;
+  position: relative;
+  color: var(--ink,#3d4034);
+  font-family: "Kaiti SC",STKaiti,"KaiTi",var(--serif,serif);
+  font-size: clamp(21px,2.15vw,34px);
+  font-weight: 500;
+  line-height: 1.58;
+  letter-spacing: .04em;
+  text-wrap: pretty;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.sc-subtitle::before {
+  content:"";
+  position:absolute;
+  width:5px;
+  height:1.05em;
+  top:.32em;
+  left:0;
+  background:var(--red,#975b44);
+  transform:rotate(4deg);
+  clip-path:polygon(18% 0,95% 8%,82% 100%,0 97%);
+}
+.sc-words { opacity:0; }
+.sc-words.sc-written { opacity:1; animation:sc-ink .73s ease-out both; }
+@keyframes sc-ink { from{opacity:0;filter:blur(1.5px);} to{opacity:1;filter:none;} }
+.sc-paused .sc-mat,.sc-paused .sc-words { animation-play-state:paused!important; }
+/* A single memento is a large tipped-in original alongside its inscription. */
+@media(min-width:701px) {
+  .sc-album[data-count="1"] { display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);align-items:center;gap:clamp(24px,3vw,64px); }
+  .sc-album[data-count="1"] .sc-spread { height:clamp(350px,61svh,720px); }
+  .sc-album[data-count="1"] .sc-spread::before { inset:7% 6% 4% 1%; }
+  .sc-album[data-count="1"] .sc-spread::after { inset:23% 1% 5% 28%; }
+  .sc-album[data-count="1"] .sc-subtitle { margin:0;max-width:100%;font-size:clamp(22px,2.2vw,38px); }
+  .sc-album[data-count="1"][data-mood="sad"] .sc-subtitle { font-size:clamp(16px,1.5vw,24px);line-height:1.75; }
+}
+@media(max-width:700px) {
+  .sc-print { --xx:var(--xm);--yy:var(--ym);--ww:var(--wm);--hh:var(--capm);--aa:var(--turnm); }
+  .sc-spread { height:clamp(320px,56svh,560px); }
+  .sc-album:is([data-count="6"],[data-count="7"],[data-count="8"]) .sc-spread { height:clamp(405px,62svh,650px); }
+  .sc-album[data-count="1"] .sc-spread { height:clamp(270px,50svh,520px); }
+  .sc-spread::before { inset:4% -1.5% 10%; }
+  .sc-spread::after { inset:27% 1% 1% 17%; }
+  .sc-subtitle { margin:14px auto 0;padding-left:12px;font-size:clamp(19px,5vw,26px);max-width:95%; }
+  .sc-subtitle::before{width:3px;}
+  .sc-album[data-mood="sad"] .sc-subtitle { font-size:18px; }
+  .sc-mat { padding:4px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .sc-album *, .sc-album *::before,.sc-album *::after { animation:none!important;transition:none!important; }
+}
+
+/* The photographic scene carries across the page. Only the paper mounts and
+   the edges of a few support sheets interrupt the light under the pictures. */
+body.cinema .sc-spread::before {
+  inset: 17% 4% 30% 17%;
+  opacity: .10;
+  background:linear-gradient(115deg,#d7c6a2,transparent 92%);
+}
+body.cinema .sc-spread::after {
+  inset: 45% 7% 15% 20%;
+  opacity:.16;
+  border-color:#dbd2b87a;
+  background:repeating-linear-gradient(0deg,transparent 0 27px,#dbd2b842 27px 28px);
+}
+body.cinema .sc-print {
+  filter:drop-shadow(0 1px 2px #0008) drop-shadow(1px 8px 8px #080c0f6b);
+}
+body.cinema .sc-mat {
+  padding:clamp(3px,.38vw,6px);
+  border-color:#fff3dfbf;
+  background:linear-gradient(130deg,#fff9e9,#f5f0e4 62%,#d8d2bf);
+}
+body.cinema .sc-print:first-child .sc-mat{padding-bottom:clamp(6px,.8vw,12px);}
+body.cinema .sc-subtitle {
+  color:#fff7e5;
+  text-shadow:0 2px 10px #14130fcc,0 1px 3px #15150ed9;
+}
+body.cinema .sc-subtitle::before {background:#dcad81;}
+body.cinema .sc-album[data-count="1"] .sc-spread::before { opacity:.15; }
+.sc-ink-unit { display:inline-block; }
+.sc-written .sc-ink-unit {
+  animation:sc-inscribe .58s var(--ink-delay,0ms) cubic-bezier(.17,.72,.21,1) both;
+}
+@keyframes sc-inscribe {
+  from { opacity:0;transform:translateY(.23em);filter:blur(1.4px); }
+  to { opacity:1;transform:none;filter:none; }
+}
+.sc-paused .sc-ink-unit { animation-play-state:paused!important; }
